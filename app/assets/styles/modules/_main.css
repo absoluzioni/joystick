@@ -1,0 +1,41 @@
+#container {
+  width: 5760px;
+  height: 2960px;
+  position: absolute;
+  background-color: white;
+
+  .text {
+    position: absolute;
+    font-size: 48px;
+    font-weight: bold;
+    background-color: #71e1cc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+  }
+}
+
+#joystick {
+  position: fixed;
+  top: calc(100dvh - 120px);
+  left: 20px;
+  width: 100px;
+  height: 100px;
+  background: rgba(128, 128, 128, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  touch-action: none;
+  border: 1px solid red;
+
+  #knob {
+    width: 40px;
+    height: 40px;
+    background: rgb(128, 128, 128);
+    border-radius: 50%;
+    position: relative;
+  }
+}

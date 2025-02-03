@@ -1,0 +1,252 @@
+/* Mixin per le mediaquery */
+@define-mixin xsma{
+    @media (max-width: $smartphone-width) {
+         @mixin-content;
+    }
+}
+
+@define-mixin sma{
+    @media (min-width: $smartphone-width) {
+         @mixin-content;
+    }
+}
+
+@define-mixin onlysma{
+    @media (min-width: #{$smartphone-width}) and (max-width: #{$tablet-width - 1px}) {
+         @mixin-content;
+    }
+}
+
+@define-mixin tab{
+    @media (min-width: $tablet-width) {
+         @mixin-content;
+    }
+}
+
+@define-mixin onlytab{
+    @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px})  {
+         @mixin-content;
+    }
+}
+
+@define-mixin desk{
+    @media (min-width: $desktop-width) {
+         @mixin-content;
+    }
+}
+
+@define-mixin onlydesk{
+    @media (min-width: #{$desktop-width}) and (max-width: #{$wide-desktop-width - 1px}) {
+        @mixin-content;
+    }
+}
+
+@define-mixin widedesk{
+    @media (min-width: $wide-desktop-width) {
+         @mixin-content;
+    }
+}
+
+@define-mixin maxw $max-width {
+    @media (max-width: $max-width) {
+         @mixin-content;
+    }
+}
+
+@define-mixin minw $min-width {
+    @media (min-width: $min-width) {
+         @mixin-content;
+    }
+}
+
+
+
+/* Mixin per container flex */
+@define-mixin fx-rs {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@define-mixin fx-rb {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@define-mixin fx-ra {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@define-mixin fx-rc {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+@define-mixin fx-cs {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+@define-mixin fx-ca {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+@define-mixin fx-cb {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+@define-mixin fx-cc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+
+@define-mixin logo {
+    margin-block: 0;
+    font-family: var(--ff-playfair-display);
+    font-size: 3rem;
+    font-weight: var(--fw-700);
+    color: var(--gunmetal-2); 
+}
+
+
+
+/* Mixin per una section con card che scrollano in orizzontale */
+@define-mixin section-horizontal-scroll { 
+    position: relative;
+
+    &:is(:hover, :focus) {
+        &::before {
+            content: "";
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            position: absolute;
+            background-image: url(./assets/icons/less-than.svg);
+            background-repeat: no-repeat;
+            background-size: contain;
+            border: 1.5px solid #000;
+            left: calc(var(--inlineMarginPerc) / 2 - 12px);
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 4rem;
+            font-weight: var(--weight-bold);
+            color: var(--primary-100);
+            z-index: 100;
+        }
+        
+        &::after {
+            content: "";
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            position: absolute;
+            background-image: url(./assets/icons/greater-than.svg);
+            background-repeat: no-repeat;
+            background-size: contain;
+            border: 1.5px solid #000;
+            right: calc(var(--inlineMarginPerc) / 2 - 12px);;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 4rem;
+            font-weight: var(--weight-bold);
+            color: var(--primary-100);
+            z-index: 100;
+        }
+    }
+}
+
+@define-mixin container-horizontal-scroll { 
+    --gap: 20px;
+
+    display: flex;
+    gap: var(--gap);
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 30px;
+    margin-bottom: var(--section-padding);
+
+    &::-webkit-scrollbar {height: 12px;}
+
+    &::-webkit-scrollbar-button {width: calc(25% - 40px);}
+    
+    &::-webkit-scrollbar-track {
+        outline: 2px solid var(--primary-20);
+        border-radius: 50px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border: 2px solid var(--primary-70);
+        border-radius: 50px;
+        background-color: var(--primary-100);
+    }
+}
+
+@define-mixin card-horizontal-scroll { 
+    flex: 1 0 0%;
+    padding: 20px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    background-color: #eaeaea;
+
+    display: flex;
+    flex-direction: column;
+}
+
+@define-mixin flex2Cards $2col: 576px { 
+    min-width: 100%;
+    @mixin minw $2col { min-width: calc(50% - var(--gap) / 2); }
+}
+
+@define-mixin flex3Cards $2col: 576px, $3col: 768px {
+    min-width: 100%;
+    @mixin minw $2col { min-width: calc(50% - var(--gap) / 2); }
+    @mixin minw $3col { min-width: calc(33.3333% - 2 * var(--gap) / 3); }
+}
+
+@define-mixin flex4Cards $2col: 576px, $3col: 768px, $4col: 1200px {
+    min-width: 100%;
+    @mixin minw $2col { min-width: calc(50% - var(--gap) / 2); }
+    @mixin minw $3col { min-width: calc(33.3333% - 2 * var(--gap) / 3); }
+    @mixin minw $4col { min-width: calc(25% - 3 * var(--gap) / 4); }
+}
+
+@define-mixin flex5Cards $2col: 576px, $3col: 768px, $4col: 1000px, $5col: 1200px {
+    min-width: 100%;
+    @mixin minw $2col { min-width: calc(50% - var(--gap) / 2); }
+    @mixin minw $3col { min-width: calc(33.3333% - 2 * var(--gap) / 3); }
+    @mixin minw $4col { min-width: calc(25% - 3 * var(--gap) / 4); }
+    @mixin minw $5col { min-width: calc(20% - 4 * var(--gap) / 5); }
+}
+
+
+/* Mixin per un container ad un'icona con sfondo */
+@define-mixin icon-bgc $lato, $color: #000 {
+    display: flex;
+    height: $lato;
+    width: $lato;
+    background-color: $color !important;
+    justify-content: center;
+    align-items: center;
+}
+
+
