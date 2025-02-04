@@ -46,10 +46,13 @@ class Joy {
           element.style.width = '100vw';
           element.style.height = '100vh';
           element.style.zIndex = '1000'; // per assicurarsi che l'elemento sia sopra gli altri
+          element.style.borderRadius = '0';
+
           this.container.setAttribute('data-posX', this.posX);
           this.container.setAttribute('data-posY', this.posY);
           this.container.style.transform = `translate(0px, 0px)`;
           window.scrollTo(-originalLeft, -originalTop);
+          this.joystick.style.visibility = "hidden";
 
           isExpanded = true; // Imposta lo stato di espansione a true
         } else {
@@ -60,12 +63,15 @@ class Joy {
           element.style.width = `400px`;
           element.style.height = `200px`;
           element.style.zIndex = '';
+          element.style.borderRadius = '40px';
+
           const originalPosX = this.container.getAttribute('data-posX');
           const originalPosY = this.container.getAttribute('data-posY');
           this.posX = originalPosX;
           this.posY = originalPosY;
           this.container.style.transform = `translate(${this.posX}px, ${this.posY}px)`;
-
+          this.joystick.style.visibility = "visible";
+          
           isExpanded = false; // Imposta lo stato di espansione a false
         }
       });
