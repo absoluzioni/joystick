@@ -1,8 +1,8 @@
 #container {
-  width: 5760px;
-  height: 2960px;
+  width: 4760px;
+  height: 1960px;
   position: absolute;
-  background-color: white;
+  background-image: linear-gradient(to bottom right, blue, white);
 
   .text {
     position: absolute;
