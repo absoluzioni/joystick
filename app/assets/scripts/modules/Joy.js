@@ -7,7 +7,7 @@ class Joy {
     this.posY = 0;
     this.speedX = 0;
     this.speedY = 0;
-    this.maxSpeed = 10;
+    this.maxSpeed = 20;
     this.dragging = false;
     this.events();
   }
@@ -35,45 +35,27 @@ class Joy {
       let isExpanded = false; // Variabile per tenere traccia dello stato di espansione dell'elemento
 
       element.addEventListener('click', () => {
-        const originalTop = element.getAttribute('data-top');
-        const originalLeft = element.getAttribute('data-left');
+        const rect = element.getBoundingClientRect();
+        element.setAttribute('data-top', rect.y);
+        element.setAttribute('data-left', rect.x);
 
         if (!isExpanded) {
-          // Fai allargare l'elemento fino ad occupare tutto lo schermo visibile
-          element.style.position = 'fixed';
-          element.style.top = '0';
-          element.style.left = '0';
           element.style.width = '100vw';
           element.style.height = '100vh';
-          element.style.zIndex = '1000'; // per assicurarsi che l'elemento sia sopra gli altri
+          element.style.zIndex = '100';
           element.style.borderRadius = '0';
-
-          this.container.setAttribute('data-posX', this.posX);
-          this.container.setAttribute('data-posY', this.posY);
-          this.container.style.transform = `translate(0px, 0px)`;
-          window.scrollTo(-originalLeft, -originalTop);
+          element.style.transform = `translate(${-rect.x}px, ${-rect.y}px)`;
           this.joystick.style.visibility = "hidden";
-
-          isExpanded = true; // Imposta lo stato di espansione a true
         } else {
-          // Ritorna l'elemento alle dimensioni e alla posizione originaria
-          element.style.position = 'absolute';
-          element.style.top = `${originalTop}px`;
-          element.style.left = `${originalLeft}px`;
           element.style.width = `400px`;
           element.style.height = `200px`;
-          element.style.zIndex = '';
+          element.style.zIndex = '0';
           element.style.borderRadius = '40px';
-
-          const originalPosX = this.container.getAttribute('data-posX');
-          const originalPosY = this.container.getAttribute('data-posY');
-          this.posX = originalPosX;
-          this.posY = originalPosY;
-          this.container.style.transform = `translate(${this.posX}px, ${this.posY}px)`;
+          element.style.transform = `translate(${rect.x}px, ${rect.y}px)`;
           this.joystick.style.visibility = "visible";
-          
-          isExpanded = false; // Imposta lo stato di espansione a false
         }
+        isExpanded = !isExpanded;
+        
       });
     });
 
